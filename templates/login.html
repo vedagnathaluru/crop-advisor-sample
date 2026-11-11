@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ 'Create account' if mode=='register' else 'Log in' }} | Crop Advisor</title>
+<style>
+:root{--bg:#10150f;--panel:#182018;--line:#2a3628;--text:#e8eddc;--mute:#97a38b;--wheat:#e3b448;--leaf:#7fc27a;--rust:#d0694a}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;background:var(--bg);color:var(--text);font:15px/1.5 system-ui,sans-serif;padding:16px}
+form{width:100%;max-width:380px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:26px}
+h1{font:700 26px Georgia,serif;color:var(--wheat);margin:0 0 4px}p{color:var(--mute);margin:0 0 14px}
+label{display:block;color:var(--mute);font-size:13px;margin:12px 0 3px}
+input{width:100%;background:var(--bg);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:10px;font:inherit}input:focus-visible,button:focus-visible{outline:2px solid var(--leaf)}
+button{margin-top:18px;width:100%;background:var(--leaf);color:#0d1a0c;border:0;border-radius:8px;padding:11px;font:600 15px inherit;cursor:pointer}
+.err{background:#3a1c14;border:1px solid #7a3a28;color:#f0b4a2;padding:8px 12px;border-radius:8px;margin-bottom:6px}a{color:var(--wheat)}.alt{margin-top:16px;text-align:center;color:var(--mute)}
+</style></head><body>
+<form method="post">
+<h1>{{ 'Create your account' if mode=='register' else 'Welcome back' }}</h1>
+<p>{{ 'Save time on every crop decision.' if mode=='register' else 'Log in to plan your next crop.' }}</p>
+{% if err %}<div class="err" role="alert">{{ err }}</div>{% endif %}
+{% if mode=='register' %}<label for="n">Full name</label><input id="n" name="name" required autocomplete="name">{% endif %}
+<label for="e">Email</label><input id="e" name="email" type="email" required autocomplete="email">
+<label for="p">Password</label><input id="p" name="password" type="password" required minlength="{{ 6 if mode=='register' else 1 }}" autocomplete="{{ 'new-password' if mode=='register' else 'current-password' }}">
+<button>{{ 'Create account' if mode=='register' else 'Log in' }}</button>
+<div class="alt">{% if mode=='register' %}Already registered? <a href="/login">Log in</a>{% else %}New here? <a href="/register">Create an account</a>{% endif %}</div>
+</form></body></html>
